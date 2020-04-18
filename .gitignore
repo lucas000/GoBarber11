@@ -105,3 +105,8 @@ dist
 
 #Editor
 .vscode
+
+#Folder to storage avatars
+tmp/*
+
+!tmp/.gitkeep
