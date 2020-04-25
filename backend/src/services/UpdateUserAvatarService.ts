@@ -23,8 +23,8 @@ class UpdateUserAvatarService {
       throw new AppError('Only authenticated users can change avatar', 401);
     }
 
-    if (user.avatar){
-      //Deletar avatar anterior
+    if (user.avatar) {
+      // Deletar avatar anterior
 
       const userAvatarFilePath = path.join(uploadConfig.directory, user.avatar);
 

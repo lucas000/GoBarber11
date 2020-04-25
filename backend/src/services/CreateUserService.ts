@@ -12,14 +12,14 @@ interface Request {
 }
 
 class CreateUserService {
-  public async execute({ name, email, password}: Request): Promise<User> {
+  public async execute({ name, email, password }: Request): Promise<User> {
     const usersRepository = getRepository(User);
 
     const checkUserExists = await usersRepository.findOne({
-      where: { email: email },
+      where: { email },
     });
 
-    if(checkUserExists) {
+    if (checkUserExists) {
       throw new AppError('Email adress already used');
     }
 
