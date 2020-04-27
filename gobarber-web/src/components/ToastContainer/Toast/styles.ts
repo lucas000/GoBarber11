@@ -8,16 +8,16 @@ interface ContainerProps {
 
 const toastTypeVariations = {
   info: css`
-    background: #EBF8FF;
-    color: #3172B7;
+    background: #ebf8ff;
+    color: #3172b7;
   `,
   success: css`
-    background: #E6FFFA;
-    color: #2E656A;
+    background: #e6fffa;
+    color: #2e656a;
   `,
   error: css`
-    background: #FDDEDE;
-    color: #C53030;
+    background: #fddede;
+    color: #c53030;
   `,
 };
 
@@ -28,30 +28,28 @@ export const Container = styled(animated.div)<ContainerProps>`
   padding: 16px 30px 16px 16px;
   border-radius: 10px;
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
-
   display: flex;
 
   & + div {
     margin-top: 8px;
   }
 
-  background: #EBF8FF;
-  color: #3172B7;
+  background: #ebf8ff;
+  color: #3172b7;
 
-  ${(props) => toastTypeVariations[props.type || 'info']};
+  ${props => toastTypeVariations[props.type || 'info']}
 
   > svg {
     margin: 4px 12px 0 0;
   }
 
   div {
-    flex: 1%;
-
+    flex: 1;
     p {
       margin-top: 4px;
       font-size: 14px;
-      opacity: 0.8;
       line-height: 20px;
+      opacity: 0.8;
     }
   }
 
@@ -65,11 +63,13 @@ export const Container = styled(animated.div)<ContainerProps>`
     color: inherit;
   }
 
-  ${props => !props.hasDescription && css`
-    align-items: center;
+  ${props =>
+    !props.hasDescription &&
+    css`
+      align-items: center;
 
-    svg {
-      margin-top: 0;
-    }
-  `};
+      svg {
+        margin-top: 0;
+      }
+    `}
 `;

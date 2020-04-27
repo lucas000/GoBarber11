@@ -5,7 +5,7 @@ import ToastContainer from '../components/ToastContainer';
 
 export interface ToastMessage {
   id: string;
-  type: 'success' | 'error' | 'info';
+  type?: 'success' | 'error' | 'info';
   title: string;
   description?: string;
 }
@@ -31,7 +31,7 @@ const ToastProvider: React.FC = ({ children }) => {
         description,
       };
 
-      setMessages((oldMessages) => [...messages, toast]);
+      setMessages(oldMessages => [...messages, toast]);
     }, [],
   );
 
