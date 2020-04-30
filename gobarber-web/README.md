@@ -47,12 +47,12 @@
 <strong>Login</strong>
 <br/>
 
-<img width="550" src='img/Logon.png'>
+<img width="550" src='./img/Logon.png'>
 <br /><br />
 <strong>Cadastro</strong>
 <br /><br/>
 
-<img width="550" src='img/SingUp.png'>
+<img width="550" src='./img/SingUp.png'>
 <br />
 
 ## 🚀 Instalar e usar
