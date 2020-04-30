@@ -56,7 +56,7 @@ const SignUp: React.FC = () => {
 
       Alert.alert(
         'Cadastro realizado com sucesso',
-        'Você já pode fazer login na aplicação.',
+        'Você já pode fazer logi na aplicação.',
       );
 
       navigation.goBack();
