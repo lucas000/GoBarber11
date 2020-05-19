@@ -617,6 +617,13 @@
   resolved "https://registry.yarnpkg.com/@types/hapi__joi/-/hapi__joi-17.1.0.tgz#b5324c423a49697ea0926f19cc90c6f5cbb68391"
   integrity sha512-zqPGKJ3FUiut0NZUstLBm3gAkSMwWwn/soNi/KvefJfhlaQYYoLnMiMCaMN97dPK4iKjFSIVwRbHANSgUCKm7g==
 
+"@types/ioredis@^4.16.2":
+  version "4.16.2"
+  resolved "https://registry.yarnpkg.com/@types/ioredis/-/ioredis-4.16.2.tgz#192c487a003463a6881dbc29faaa168902ef851a"
+  integrity sha512-b1wSWCLx5ygzDZ2d1BYBzsTzUcPEOcJH8d5O6AJGGJXjE6C+HrlA61sw5GQNqtqTPVo2Hpc4rPA30lI0T6QSLQ==
+  dependencies:
+    "@types/node" "*"
+
 "@types/istanbul-lib-coverage@*", "@types/istanbul-lib-coverage@^2.0.0", "@types/istanbul-lib-coverage@^2.0.1":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@types/istanbul-lib-coverage/-/istanbul-lib-coverage-2.0.1.tgz#42995b446db9a48a11a07ec083499a860e9138ff"
