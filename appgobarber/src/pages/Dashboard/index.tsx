@@ -71,7 +71,7 @@ const Dashboard: React.FC = () => {
           <ProvidersListTitle>Cabeleireiros</ProvidersListTitle>
         }
         renderItem={( { item: provider } ) => (
-        <ProviderContainer onPress={ () => navigateToCreateAppointment(provider.id) }>
+        <ProviderContainer onPress={() => navigateToCreateAppointment(provider.id)}>
           <ProviderAvatar source={{ uri: provider.avatar_url}} />
 
           <ProviderInfo>
