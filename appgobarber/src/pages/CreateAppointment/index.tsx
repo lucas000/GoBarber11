@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState, useMemo } from 'react';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Feather';
-import { Platform } from 'react-native';
+import { Platform, Alert } from 'react-native';
 import { format } from 'date-fns';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
@@ -31,6 +31,8 @@ import {
   SectionContent,
   Hour,
   HourText,
+  CreateAppointmentButton,
+  CreateAppointmentButtonText,
 } from './styles';
 
 interface RouteParams {
@@ -51,7 +53,7 @@ interface AvailabilityItem {
 const CreateAppointment: React.FC = () => {
   const { user } = useAuth();
   const route = useRoute();
-  const { goBack } = useNavigation();
+  const { goBack, navigate } = useNavigation();
 
   const routeParams = route.params as RouteParams;
 
@@ -78,7 +80,6 @@ const CreateAppointment: React.FC = () => {
         },
       })
       .then(response => {
-        console.log(response.data);
         setAvailability(response.data);
       });
   }, [selectedDate, selectedProvider]);
@@ -109,24 +110,49 @@ const CreateAppointment: React.FC = () => {
     setSelectedHour(hour);
   }, []);
 
+  const handleCreateAppointment = useCallback( async () => {
+    try {
+      const date = new Date(selectedDate);
+
+      date.setHours(selectedHour);
+      date.setMinutes(0);
+
+      await api.post('appointments', {
+        provider_id: selectedProvider,
+        date,
+      });
+
+      navigate('AppointmentCreated', {
+        date: date.getTime(),
+      });
+    } catch (error) {
+      Alert.alert(
+        'Erro ao criar agendamento',
+        'Ocorreu um erro ao tentar criar o agendamento, tente novamente.',
+      );
+    }
+  }, [navigate, selectedDate, selectedHour, selectedProvider]);
+
   const morningAvailability = useMemo(() => {
-    return availability.filter(({ hour }) => hour < 12).map(({hour, available}) => {
-      return {
+    return availability
+      .filter(({ hour }) => hour < 12)
+      .map(({hour, available}) => ({
         hour,
         available,
         hourFormatted: format(new Date().setHours(hour), 'HH:00'),
-      };
-    });
+      }
+    ));
   }, [availability]);
 
   const afternoonAvailability = useMemo(() => {
-    return availability.filter(({ hour }) => hour >= 12).map(({hour, available}) => {
-      return {
+    return availability
+      .filter(({ hour }) => hour >= 12)
+      .map(({ hour, available }) => ({
         hour,
         available,
         hourFormatted: format(new Date().setHours(hour), 'HH:00'),
-      };
-    });
+      }
+    ));
   }, [availability]);
 
   return (
@@ -189,7 +215,7 @@ const CreateAppointment: React.FC = () => {
             <SectionTitle>Manhã</SectionTitle>
 
             <SectionContent>
-              {morningAvailability.map(({ hourFormatted, hour, available }) => {
+              {morningAvailability.map(({ hourFormatted, hour, available }) => (
                 <Hour
                   enabled={available}
                   selected={selectedHour === hour}
@@ -201,7 +227,7 @@ const CreateAppointment: React.FC = () => {
                     {hourFormatted}
                   </HourText>
                 </Hour>
-              })}
+              ))}
             </SectionContent>
           </Section>
 
@@ -209,7 +235,7 @@ const CreateAppointment: React.FC = () => {
             <SectionTitle>Tarde</SectionTitle>
 
             <SectionContent>
-              {afternoonAvailability.map(({ hourFormatted, hour, available }) => {
+              {afternoonAvailability.map(({ hourFormatted, hour, available }) => (
                 <Hour
                   enabled={available}
                   selected={selectedHour === hour}
@@ -221,10 +247,14 @@ const CreateAppointment: React.FC = () => {
                     {hourFormatted}
                   </HourText>
                 </Hour>
-              })}
+              ))}
             </SectionContent>
           </Section>
         </Schedule>
+
+        <CreateAppointmentButton onPress={() => handleCreateAppointment } >
+          <CreateAppointmentButtonText>Agendar</CreateAppointmentButtonText>
+        </CreateAppointmentButton>
       </Content>
     </Container>
   );
